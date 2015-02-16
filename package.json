@@ -1,0 +1,33 @@
+{
+  "name": "rifraf",
+  "version": "1.0.0",
+  "description": "A simple requestAnimationFrame wrapper with added iteratee creator.",
+  "main": "index.js",
+  "scripts": {
+    "test-browser": "browserify -e test/main.js -o test/test-browser.js && open test/index.html",
+    "test": "node test/main.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aaronmccall/rifraf.git"
+  },
+  "keywords": [
+    "requestAnimationFrame",
+    "iteratee",
+    "iterate",
+    "async",
+    "performance",
+    "browser"
+  ],
+  "author": "Aaron McCall <aaron@andyet.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaronmccall/rifraf/issues"
+  },
+  "homepage": "https://github.com/aaronmccall/rifraf",
+  "dependencies": {},
+  "devDependencies": {
+    "tap-spec": "^2.2.1",
+    "tape": "^3.5.0"
+  }
+}
