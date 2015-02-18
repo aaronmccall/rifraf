@@ -2,8 +2,9 @@
 var request, cancel, root, delay;
 var isNative = true;
 
-function fakeRAF (fn) {
-    return root.setTimeout(fn, delay);
+function fakeRAF (fn, _delay) {
+    _delay = _delay !== void 0 ? _delay : delay;
+    return root.setTimeout(fn, _delay);
 }
 
 if (!(request && cancel)) {
@@ -27,6 +28,27 @@ function iteratee(fn, ctx) {
     };
 }
 
+function delay(fn, ctx, _delay) {
+    if (typeof ctx === 'number' && typeof _delay === 'undefined') {
+        _delay = ctx;
+        ctx = void 0;
+    }
+    if (typeof ctx === 'object') {
+        fn = fn.bind(ctx);
+    }
+    return fakeRAF(fn, _delay);
+}
+
+function iterateeFake(fn, ctx, _delay) {
+    if (typeof ctx === 'number' && typeof _delay === 'undefined') {
+        _delay = ctx;
+        ctx = void 0;
+    }
+    return function _iterateeFake() {
+        fakeRAF(fn.apply.bind(fn, ctx || this, arguments), _delay);
+    }
+}
+
 function sync(_delay) { 
     return typeof _delay === 'number' && (delay = _delay);
 }
@@ -39,6 +61,8 @@ module.exports = {
     },
     iteratee: iteratee,
     deferred: iteratee,
+    delay: delay,
+    delayed: iterateeFake,
     cancel: cancel.bind(root),
     sync60Hz: sync.bind(root, 16),
     sync30Hz: sync.bind(root, 33),
