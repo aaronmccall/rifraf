@@ -71,7 +71,7 @@ rifraf.delay(function () {}, 24);
 rifraf.delay(function () {}, null, 24);
 ```
 
-#### delayed(`<Function> fn`, `<Object:optional> ctx`, `<Number:optional> _delay`)
+#### delayed(`<Function> fn`, `<Object:optional> ctx`, `<Number:optional> delay`)
 
 Used like `iteratee`, but when you want to `delay` not defer to next frame. Call signature matches `delay`.
 
@@ -93,7 +93,7 @@ Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `it
 
 Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 33ms.
 
-### sync(`<Number> delay`)
+#### sync(`<Number> delay`)
 
 Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to `{delay}`ms.
 
