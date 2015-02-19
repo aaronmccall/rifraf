@@ -1,5 +1,6 @@
 
-var request, cancel, root, delay;
+var request, cancel, root;
+var delay = 8;
 var isNative = true;
 
 function fakeRAF (fn, _delay) {
@@ -16,7 +17,6 @@ if (!(request && cancel)) {
     
     if (cancel === root.clearTimeout || request === fakeRAF) {
         isNative = false;
-        delay = 8;
         request = fakeRAF;
     }
 
