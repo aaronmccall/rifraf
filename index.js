@@ -1,10 +1,10 @@
 
 var request, cancel, root;
-var delay = 8;
+var syncDelay = 8;
 var isNative = true;
 
 function fakeRAF (fn, _delay) {
-    _delay = _delay !== void 0 ? _delay : delay;
+    _delay = _delay !== void 0 ? _delay : syncDelay;
     return root.setTimeout(fn, _delay);
 }
 
@@ -50,7 +50,7 @@ function iterateeFake(fn, ctx, _delay) {
 }
 
 function sync(_delay) { 
-    return typeof _delay === 'number' && (delay = _delay);
+    return typeof _delay === 'number' && (syncDelay = _delay);
 }
 
 module.exports = {
