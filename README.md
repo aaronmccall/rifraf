@@ -57,7 +57,7 @@ $('a[href]').each(rifraf.iteratee(function () {
 
 #### delay(`<Function> fn`, `<Object:optional> ctx`, `<Number:optional> _delay`)
 
-When you want to defer a function call, but it doesn't need to be tied to frames, `delay` may work better. Pre-binds context, provided. The delay amount may also be specified.
+When you want to defer a function call, but your desired frame rate differs from native, `delay` is for you. Pre-binds context, if provided. 
 
 ```javascript
 // with context
@@ -73,7 +73,7 @@ rifraf.delay(function () {}, null, 24);
 
 #### delayed(`<Function> fn`, `<Object:optional> ctx`, `<Number:optional> delay`)
 
-Used like `iteratee`, but when you want to `delay` not defer to next frame. Call signature matches `delay`.
+Used like `iteratee`, but when you want to `delay` not simply defer to next native frame. Call signature matches `delay`.
 
 ```javascript
 var delayedDefault = rifraf.delayed(function (i, el) {
@@ -85,13 +85,17 @@ $('a[href]').each(delayedDefault);
 var delayed24ms = rifraf.delayed(function () {}, 24);
 ```
 
+#### sync120Hz()
+
+Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 8ms (roughly: 1000 / 120).
+
 #### sync60Hz()
 
-Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 16ms.
+Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 16ms (roughly: 1000 / 60).
 
 #### sync30Hz()
 
-Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 33ms.
+Sets default delay time for `delay`, `delayed` (and polyfilled `request` and `iteratee`) methods to 33ms (roughly: 1000 / 30).
 
 #### sync(`<Number> delay`)
 
