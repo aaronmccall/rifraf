@@ -51,7 +51,16 @@ var iterateeFake = ctxDelayWrapper(function _iterateeFake(fn, ctx, _delay) {
 
 function sync(_delay) { 
     return typeof _delay === 'number' && (syncDelay = _delay);
+    return syncDelay;
 }
+
+var later = ctxDelayWrapper(function _later(fn, ctx, _delay) {
+    return delay(iteratee(fn, ctx), _delay);
+});
+
+var latered = ctxDelayWrapper(function _latered(fn, ctx, _delay) {
+    return iterateeFake(iteratee(fn, ctx), _delay);
+});
 
 module.exports = {
     isNative: isNative,
@@ -60,9 +69,10 @@ module.exports = {
     },
     iteratee: iteratee,
     deferred: iteratee,
-    delay: delay,
-    delayed: iterateeFake,
+    delay: isNative ? later : delay,
+    delayed: isNative ? latered : iterateeFake,
     cancel: cancel.bind(root),
+    sync120Hz: sync.bind(root, 8),
     sync60Hz: sync.bind(root, 16),
     sync30Hz: sync.bind(root, 33),
     sync: sync
