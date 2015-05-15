@@ -14,8 +14,8 @@ function ctxDelayWrapper(func) {
 }
 
 function fakeRAF (fn, _delay) {
-    _delay = _delay !== void 0 ? _delay : syncDelay;
-    return root.setTimeout(fn, _delay);
+    var delay = _delay !== void 0 ? _delay : syncDelay;
+    return root.setTimeout(fn, delay);
 }
 
 if (!(request && cancel)) {
@@ -56,8 +56,7 @@ function sync(_delay) {
 module.exports = {
     isNative: isNative,
     request: function (fn, ctx) {
-        if (arguments.length > 1) fn = fn.bind(ctx);
-        return request.call(root, fn);
+        return request.call(root, (arguments.length > 1) ? fn.bind(ctx) : fn);
     },
     iteratee: iteratee,
     deferred: iteratee,
