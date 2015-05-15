@@ -27,6 +27,7 @@
   "homepage": "https://github.com/aaronmccall/rifraf",
   "dependencies": {},
   "devDependencies": {
+    "performance-now": "^0.2.0",
     "tap-spec": "^2.2.1",
     "tape": "^3.5.0"
   }
