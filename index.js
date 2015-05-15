@@ -3,6 +3,16 @@ var request, cancel, root;
 var syncDelay = 8;
 var isNative = true;
 
+function ctxDelayWrapper(func) {
+    return function (fn, _ctx, _delay) {
+        if (typeof _ctx === 'number' && typeof _delay === 'undefined') {
+            var delay = _ctx;
+            var ctx = void 0;
+        }
+        return func(fn, ctx, delay);
+    }
+}
+
 function fakeRAF (fn, _delay) {
     _delay = _delay !== void 0 ? _delay : syncDelay;
     return root.setTimeout(fn, _delay);
@@ -28,26 +38,16 @@ function iteratee(fn, ctx) {
     };
 }
 
-function delay(fn, ctx, _delay) {
-    if (typeof ctx === 'number' && typeof _delay === 'undefined') {
-        _delay = ctx;
-        ctx = void 0;
-    }
-    if (typeof ctx === 'object') {
-        fn = fn.bind(ctx);
-    }
+var delay = ctxDelayWrapper(function _delay(fn, ctx, _delay) {
+    if (typeof ctx === 'object') fn = fn.bind(ctx);
     return fakeRAF(fn, _delay);
-}
+});
 
-function iterateeFake(fn, ctx, _delay) {
-    if (typeof ctx === 'number' && typeof _delay === 'undefined') {
-        _delay = ctx;
-        ctx = void 0;
-    }
+var iterateeFake = ctxDelayWrapper(function _iterateeFake(fn, ctx, _delay) {
     return function _iterateeFake() {
         fakeRAF(fn.apply.bind(fn, ctx || this, arguments), _delay);
     }
-}
+});
 
 function sync(_delay) { 
     return typeof _delay === 'number' && (syncDelay = _delay);
