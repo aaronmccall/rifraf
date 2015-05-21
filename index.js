@@ -5,9 +5,11 @@ var isNative = true;
 
 function ctxDelayWrapper(func) {
     return function (fn, _ctx, _delay) {
+        var ctx = _ctx;
+        var delay = _delay;
         if (typeof _ctx === 'number' && typeof _delay === 'undefined') {
-            var delay = _ctx;
-            var ctx = void 0;
+            delay = _ctx;
+            ctx = void 0;
         }
         return func(fn, ctx, delay);
     }
