@@ -26,7 +26,7 @@ if (!(request && cancel)) {
     request = (root.requestAnimationFrame || root.mozRequestAnimationFrame || root.webkitRequestAnimationFrame || fakeRAF);
     cancel = root.cancelAnimationFrame || root.mozCancelAnimationFrame || root.webkitCancelAnimationFrame || root.webkitCancelRequestAnimationFrame || root.clearTimeout;
 
-    
+
     if (cancel === root.clearTimeout || request === fakeRAF) {
         isNative = false;
         request = fakeRAF;
@@ -51,9 +51,8 @@ var iterateeFake = ctxDelayWrapper(function _iterateeFake(fn, ctx, _delay) {
     }
 });
 
-function sync(_delay) { 
+function sync(_delay) {
     return typeof _delay === 'number' && (syncDelay = _delay);
-    return syncDelay;
 }
 
 var later = ctxDelayWrapper(function _later(fn, ctx, _delay) {
